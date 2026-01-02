@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공동구매 정산 시스템 NAS 전환 기획안</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+            <h3>목차</h3>
+            <nav>
+                <ul>
+                    <li><a href="#section-1">1. 현행 시스템</a>
+                        <ul>
+                            <li><a href="#section-1-1">1.1 시스템 명세</a></li>
+                            <li><a href="#section-1-2">1.2 주요 기능</a></li>
+                            <li><a href="#section-1-3">1.3 자동화 효과</a></li>
+                            <li><a href="#section-1-4">1.4 아키텍처</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-2">2. 전환 배경</a>
+                        <ul>
+                            <li><a href="#section-2-1">2.1 환경 변화</a></li>
+                            <li><a href="#section-2-2">2.2 문제점</a></li>
+                            <li><a href="#section-2-3">2.3 시급성</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-3">3. NAS 시스템</a>
+                        <ul>
+                            <li><a href="#section-3-1">3.1 전환 개요</a></li>
+                            <li><a href="#section-3-2">3.2 아키텍처</a></li>
+                            <li><a href="#section-3-3">3.3 핵심 기능</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section-4">4. 기대 효과</a></li>
+                    <li><a href="#section-5">5. 구현 계획</a></li>
+                    <li><a href="#section-6">6. ROI</a></li>
+                    <li><a href="#section-7">7. 결론</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 메인 컨텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+                <h1>공동구매 정산 시스템<br>NAS 전환 기획안</h1>
+                <div class="meta">
+                    2026년 1월 2일 | 버전 1.0
+                </div>
+                <div class="badges">
+                    <span class="badge">구글 의존성 제거</span>
+                    <span class="badge">보안 강화</span>
+                    <span class="badge">투자 0원</span>
+                    <span class="badge">개발 2일</span>
+                </div>
+            </header>
+
+            <!-- 요약 -->
+            <div class="alert">
+                <h4>핵심 요약</h4>
+                <p><strong>목표:</strong> 구글 시트 → NAS 자동 동기화로 전환</p>
+                <p><strong>투자:</strong> 0원 (기존 NAS 활용)</p>
+                <p><strong>기간:</strong> 2일 개발 + 1주 안정화</p>
+                <p><strong>효과:</strong> 연간 80만원 절감 + 보안 강화 + 효율 30% 향상</p>
+            </div>
+
+            <!-- 섹션 1 -->
+            <section id="section-1">
+                <h2>1. 현행 시스템 개요</h2>
+
+                <div id="section-1-1">
+                    <h3>1.1 시스템 명세</h3>
+                    <table>
+                        <tr>
+                            <th>항목</th>
+                            <th>내용</th>
+                        </tr>
+                        <tr>
+                            <td>시스템명</td>
+                            <td>공동구매 정산 시스템 v6</td>
+                        </tr>
+                        <tr>
+                            <td>개발 기간</td>
+                            <td>2025년 12월 (약 1주일, 틈틈이 개발)</td>
+                        </tr>
+                        <tr>
+                            <td>개발 방식</td>
+                            <td>HTML + JavaScript + localStorage</td>
+                        </tr>
+                        <tr>
+                            <td>외부 연동</td>
+                            <td>구글 캘린더 API, 구글 시트 API</td>
+                        </tr>
+                        <tr>
+                            <td>배포 방식</td>
+                            <td>배치파일 + Python 로컬 서버</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="section-1-2">
+                    <h3>1.2 주요 기능</h3>
+                    
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>공구 관리</h4>
+                            <ul>
+                                <li>공구 등록 및 수정</li>
+                                <li>다품목 지원</li>
+                                <li>수수료 관리</li>
+                                <li>샘플 관리</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>판매 관리</h4>
+                            <ul>
+                                <li>판매 데이터 입력</li>
+                                <li>비용 관리</li>
+                                <li>자동 수익 계산</li>
+                                <li>정산금 계산</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>정산 관리</h4>
+                            <ul>
+                                <li>정산/입금일 관리</li>
+                                <li>PDF 자동 생성</li>
+                                <li>3.3% 원천징수</li>
+                                <li>세금계산서</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>대시보드</h4>
+                            <ul>
+                                <li>실시간 KPI</li>
+                                <li>월별/연별 실적</li>
+                                <li>제조사/인플 통계</li>
+                                <li>미수금 현황</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="section-1-3">
+                    <h3>1.3 정산 자동화 효과</h3>
+
+                    <div class="alert">
+                        <h4>도입 배경</h4>
+                        <p>엑셀 수작업 정산을 완전 자동화</p>
+                    </div>
+
+                    <h4>도입 전후 비교</h4>
+                    <div class="code-block">
+<pre>기존 (수작업)
+공구 1건당 30-40분 소요
+- 엑셀 수동 입력
+- 계산기로 수수료 계산
+- 워드로 정산서 작성
+- 피봇 테이블로 통계
+
+자동화 (현재)
+공구 1건당 5-7분 소요
+- 원클릭 등록
+- 자동 계산
+- PDF 자동 생성
+- 실시간 대시보드</pre>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="stat-card">
+                            <h4>시간 절감</h4>
+                            <div class="value">85%</div>
+                            <div class="label">30분 → 5분</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <h4>업무 효율</h4>
+                            <div class="value">6배</div>
+                            <div class="label">생산성 향상</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <h4>오류 감소</h4>
+                            <div class="value">98%</div>
+                            <div class="label">계산 오류 제거</div>
+                        </div>
+                    </div>
+
+                    <h4>월간 효과 (월 20건 기준)</h4>
+                    <table>
+                        <tr>
+                            <th>항목</th>
+                            <th>기존</th>
+                            <th>현재</th>
+                            <th>절감</th>
+                        </tr>
+                        <tr>
+                            <td>정산 작업</td>
+                            <td>600분</td>
+                            <td>100분</td>
+                            <td class="highlight">500분</td>
+                        </tr>
+                        <tr>
+                            <td>정산서 작성</td>
+                            <td>400분</td>
+                            <td>20분</td>
+                            <td class="highlight">380분</td>
+                        </tr>
+                        <tr>
+                            <td>통계 리포트</td>
+                            <td>180분</td>
+                            <td>0분</td>
+                            <td class="highlight">180분</td>
+                        </tr>
+                        <tr>
+                            <td>오류 수정</td>
+                            <td>120분</td>
+                            <td>5분</td>
+                            <td class="highlight">115분</td>
+                        </tr>
+                        <tr>
+                            <td><strong>월간 총계</strong></td>
+                            <td>1,300분</td>
+                            <td>125분</td>
+                            <td class="highlight">1,175분</td>
+                        </tr>
+                    </table>
+
+                    <div class="code-block">
+<pre>연간 효과
+시간 절감: 235시간 (약 30일)
+비용 절감: 약 900만원
+- 인건비: 705만원
+- 오류 손실 방지: 200만원</pre>
+                    </div>
+
+                    <div class="alert">
+                        <h4>핵심 성과</h4>
+                        <ul>
+                            <li>개발 투자: 0원 (1주일)</li>
+                            <li>연간 효과: 900만원</li>
+                            <li>ROI: 즉시 회수</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="section-1-4">
+                    <h3>1.4 기술 아키텍처</h3>
+                    
+                    <div class="diagram">
+                        <div style="padding:20px;background:#fff;border:2px solid #000;">
+                            <strong>사용자 브라우저</strong>
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:15px;background:#f8f8f8;border:1px solid #e0e0e0;">
+                            HTML/JavaScript<br>
+                            localStorage
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div class="grid-2" style="gap:20px;">
+                            <div style="padding:15px;background:#f8f8f8;border:1px solid #e0e0e0;">
+                                Google Calendar
+                            </div>
+                            <div style="padding:15px;background:#f8f8f8;border:1px solid #e0e0e0;">
+                                Google Sheets
+                            </div>
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:15px;background:#f8f8f8;border:1px solid #e0e0e0;">
+                            Python 로컬 서버
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+<pre>현재 데이터 흐름
+작업자 PC
+  ├─ 데이터 입력
+  ├─ localStorage 저장
+  └─ "구글 시트 동기화" 클릭 (수동)
+       ↓
+  Google Sheets
+       ↓
+  다른 PC "불러오기" 클릭 (수동)
+       ↓
+  동기화 완료</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 섹션 2 -->
+            <section id="section-2">
+                <h2>2. 전환 배경</h2>
+
+                <div id="section-2-1">
+                    <h3>2.1 환경 변화</h3>
+                    
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>합병 전</h4>
+                            <ul>
+                                <li>소규모 팀 (3-4명)</li>
+                                <li>구글 자유 사용</li>
+                                <li>외부 클라우드 제약 없음</li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h4>합병 후</h4>
+                            <ul>
+                                <li>조직 확대 (5-7명)</li>
+                                <li>구글 사용 제한</li>
+                                <li>보안 심사 강화</li>
+                                <li>개인정보 정책 강화</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="section-2-2">
+                    <h3>2.2 현행 문제점</h3>
+
+                    <div class="alert">
+                        <h4>1. 외부 의존성</h4>
+                        <ul>
+                            <li>구글 서비스 전적 의존</li>
+                            <li>정책 변경 시 작동 불가</li>
+                            <li>합병 회사 정책 충돌</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert">
+                        <h4>2. 개인정보 보안</h4>
+                        <p><strong>구글 시트 저장 정보:</strong></p>
+                        <ul>
+                            <li>주민번호/생년월일</li>
+                            <li>연락처 (전화/이메일)</li>
+                            <li>주소</li>
+                            <li>사업자등록번호</li>
+                        </ul>
+                        <p class="highlight" style="display:inline-block;margin-top:10px;">리스크: 개인정보보호법 위반 가능성</p>
+                    </div>
+
+                    <div class="alert">
+                        <h4>3. 협업 불편</h4>
+                        <ul>
+                            <li>수동 동기화 필요</li>
+                            <li>데이터 누락 가능성</li>
+                            <li>최신 데이터 확인 어려움</li>
+                            <li>동시 작업 충돌</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert">
+                        <h4>4. 접근성 제한</h4>
+                        <ul>
+                            <li>PC에서만 작업 가능</li>
+                            <li>Python 서버 필요</li>
+                            <li>배치파일 실행 필요</li>
+                            <li>담당자 PC 의존</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="section-2-3">
+                    <h3>2.3 전환 시급성</h3>
+                    
+                    <table>
+                        <tr>
+                            <th>요인</th>
+                            <th>시급성</th>
+                            <th>설명</th>
+                        </tr>
+                        <tr>
+                            <td>합병 통합</td>
+                            <td class="highlight">높음</td>
+                            <td>3개월 내 구글 통합 예정</td>
+                        </tr>
+                        <tr>
+                            <td>보안 정책</td>
+                            <td class="highlight">높음</td>
+                            <td>즉시 개선 필요</td>
+                        </tr>
+                        <tr>
+                            <td>업무 효율</td>
+                            <td>중간</td>
+                            <td>시간 손실</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 섹션 3 -->
+            <section id="section-3">
+                <h2>3. NAS 기반 시스템</h2>
+
+                <div id="section-3-1">
+                    <h3>3.1 전환 개요</h3>
+                    
+                    <div class="diagram">
+                        <div style="padding:25px;background:#f8f8f8;border:1px solid #ccc;">
+                            구글 의존성<br>
+                            외부 서버, 수동 동기화
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:25px;background:#000;color:#fff;">
+                            <strong>NAS 전환</strong><br>
+                            내부 서버, 자동 동기화
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:25px;background:#f8f8f8;border:1px solid #ccc;">
+                            보안 강화 + 효율 향상
+                        </div>
+                    </div>
+
+                    <h4>변경 사항</h4>
+                    <table>
+                        <tr>
+                            <th>항목</th>
+                            <th>현행</th>
+                            <th>개선</th>
+                        </tr>
+                        <tr>
+                            <td>저장소</td>
+                            <td>구글 시트</td>
+                            <td>NAS</td>
+                        </tr>
+                        <tr>
+                            <td>동기화</td>
+                            <td>수동</td>
+                            <td class="highlight">자동</td>
+                        </tr>
+                        <tr>
+                            <td>접속</td>
+                            <td>로컬 서버</td>
+                            <td>NAS 웹</td>
+                        </tr>
+                        <tr>
+                            <td>백업</td>
+                            <td>수동</td>
+                            <td class="highlight">자동</td>
+                        </tr>
+                        <tr>
+                            <td>개인정보</td>
+                            <td>외부</td>
+                            <td class="highlight">내부</td>
+                        </tr>
+                        <tr>
+                            <td>협업</td>
+                            <td>제한적</td>
+                            <td class="highlight">실시간</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="section-3-2">
+                    <h3>3.2 시스템 아키텍처</h3>
+
+                    <div class="diagram">
+                        <div style="padding:20px;background:#fff;border:2px solid #000;">
+                            <strong>여러 사용자 (어디서나)</strong>
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:25px;background:#000;color:#fff;">
+                            <strong>NAS 웹 서버</strong><br><br>
+                            HTML + API + 데이터
+                        </div>
+                        <div class="diagram-arrow">↓</div>
+                        <div style="padding:15px;background:#f8f8f8;border:1px solid #e0e0e0;">
+                            자동 백업 + 버전 관리
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+<pre>신규 데이터 흐름
+작업자 A       NAS         직원 B/C/D
+   │            │               │
+   ├─ 접속      │               │
+   ├─ 자동 로드 ← backup.json  │
+   │            │               │
+   ├─ 입력      │               │
+   ├─ 자동 저장 → backup.json  │
+   │       (날짜별 백업)         │
+   │            │               │
+   │            │ ←──── 접속 ───┤
+   │       자동 로드 ───────────→│
+   │            │       (최신)</pre>
+                    </div>
+                </div>
+
+                <div id="section-3-3">
+                    <h3>3.3 핵심 기능</h3>
+
+                    <div class="card">
+                        <h4>자동 동기화</h4>
+                        <ul>
+                            <li>페이지 열면 자동 로드</li>
+                            <li>변경하면 자동 저장</li>
+                            <li>버튼 클릭 불필요</li>
+                            <li>항상 최신 유지</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>자동 백업</h4>
+                        <div class="code-block">
+<pre>저장 시마다 자동 백업
+/data/backup.json (최신)
+/data/backup_2025-01-02_09-30-15.json
+/data/backup_2025-01-02_14-15-32.json
+
+- 날짜/시간별 백업
+- 실수 복구 가능
+- 히스토리 추적</pre>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>접근성 향상</h4>
+                        <div class="code-block">
+<pre>http://나스IP/groupbuy/
+
+- PC 안 켜도 됨
+- 배치파일 불필요
+- Python 불필요
+- NAS만 있으면 됨</pre>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>보안 강화</h4>
+                        <ul>
+                            <li>NAS 내부 저장</li>
+                            <li>회사 네트워크 내</li>
+                            <li>VPN 외부 접속 (선택)</li>
+                            <li>사용자 권한 관리</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 섹션 4 -->
+            <section id="section-4">
+                <h2>4. 기대 효과</h2>
+
+                <h3>정량적 효과</h3>
+
+                <div class="grid-3">
+                    <div class="stat-card">
+                        <h4>시간 절감</h4>
+                        <div class="value">22시간</div>
+                        <div class="label">연간</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>비용 절감</h4>
+                        <div class="value">80만원</div>
+                        <div class="label">연간</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>효율 향상</h4>
+                        <div class="value">30%</div>
+                        <div class="label">업무</div>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<pre>시간 절감 계산
+현재: 65초/일 × 20일 = 21.7분/월
+개선: 자동 (0초)
+절감: 21.7분 × 5명 = 108.5분/월
+
+연간 절감: 22시간</pre>
+                </div>
+
+                <h3>정성적 효과</h3>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4>업무 효율</h4>
+                        <ul>
+                            <li>실시간 공유</li>
+                            <li>접근성 향상</li>
+                            <li>협업 강화</li>
+                            <li>충돌 최소화</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>보안</h4>
+                        <ul>
+                            <li>내부 관리</li>
+                            <li>법규 준수</li>
+                            <li>정책 준수</li>
+                            <li>감사 가능</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>리스크</h4>
+                        <ul>
+                            <li>의존성 제거</li>
+                            <li>중단 방지</li>
+                            <li>자동 백업</li>
+                            <li>복구 용이</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>확장성</h4>
+                        <ul>
+                            <li>인원 대응</li>
+                            <li>기능 추가</li>
+                            <li>DB 전환 가능</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>ROI 분석</h3>
+
+                <table>
+                    <tr>
+                        <th>구분</th>
+                        <th>금액</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-weight:600;background:#f8f8f8;">투자</td>
+                    </tr>
+                    <tr>
+                        <td>개발</td>
+                        <td>0원</td>
+                    </tr>
+                    <tr>
+                        <td>하드웨어</td>
+                        <td>0원</td>
+                    </tr>
+                    <tr>
+                        <td>소프트웨어</td>
+                        <td>0원</td>
+                    </tr>
+                    <tr>
+                        <td><strong>총 투자</strong></td>
+                        <td class="highlight">0원</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="font-weight:600;background:#f8f8f8;">효과 (연간)</td>
+                    </tr>
+                    <tr>
+                        <td>시간 절감</td>
+                        <td>50만원</td>
+                    </tr>
+                    <tr>
+                        <td>구글 API</td>
+                        <td>30만원</td>
+                    </tr>
+                    <tr>
+                        <td><strong>연간 효과</strong></td>
+                        <td class="highlight">80만원+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ROI</strong></td>
+                        <td class="highlight">무한대</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- 섹션 5 -->
+            <section id="section-5">
+                <h2>5. 구현 계획</h2>
+
+                <h3>단계별 일정</h3>
+
+                <table>
+                    <tr>
+                        <th>단계</th>
+                        <th>기간</th>
+                        <th>작업</th>
+                    </tr>
+                    <tr>
+                        <td>1. 준비</td>
+                        <td>1일</td>
+                        <td>NAS 확인, 설치</td>
+                    </tr>
+                    <tr>
+                        <td>2. 개발</td>
+                        <td>1일</td>
+                        <td>API 개발, HTML 수정, 테스트</td>
+                    </tr>
+                    <tr>
+                        <td>3. 배포</td>
+                        <td>0.5일</td>
+                        <td>업로드, 권한, 테스트</td>
+                    </tr>
+                    <tr>
+                        <td>4. 이관</td>
+                        <td>0.5일</td>
+                        <td>마이그레이션, 교육</td>
+                    </tr>
+                    <tr>
+                        <td><strong>총계</strong></td>
+                        <td class="highlight">2일 + 1주</td>
+                        <td>개발 2일, 안정화 1주</td>
+                    </tr>
+                </table>
+
+                <h3>리스크 관리</h3>
+
+                <table>
+                    <tr>
+                        <th>리스크</th>
+                        <th>확률</th>
+                        <th>영향</th>
+                        <th>대응</th>
+                    </tr>
+                    <tr>
+                        <td>NAS 호환성</td>
+                        <td>낮음</td>
+                        <td>중간</td>
+                        <td>사전 확인</td>
+                    </tr>
+                    <tr>
+                        <td>데이터 손실</td>
+                        <td>낮음</td>
+                        <td>높음</td>
+                        <td>구글 병행 (1개월)</td>
+                    </tr>
+                    <tr>
+                        <td>성능 저하</td>
+                        <td>낮음</td>
+                        <td>낮음</td>
+                        <td>테스트, 최적화</td>
+                    </tr>
+                </table>
+
+                <div class="alert">
+                    <h4>롤백 계획</h4>
+                    <p><strong>문제 발생 시:</strong></p>
+                    <ol>
+                        <li>즉시 구글 복귀</li>
+                        <li>NAS 데이터 백업 보관</li>
+                        <li>해결 후 재시도</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- 섹션 6 -->
+            <section id="section-6">
+                <h2>6. 투자 대비 효과</h2>
+
+                <div class="grid-2">
+                    <div class="stat-card">
+                        <h4>초기 투자</h4>
+                        <div class="value">0원</div>
+                        <div class="label">기존 NAS</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h4>연간 효과</h4>
+                        <div class="value">80만원+</div>
+                        <div class="label">정량 + 정성</div>
+                    </div>
+                </div>
+
+                <div class="alert">
+                    <h4>즉시 효과</h4>
+                    <ul>
+                        <li>구글 의존성 제거</li>
+                        <li>보안 강화</li>
+                        <li>자동 동기화</li>
+                        <li>접근성 향상</li>
+                    </ul>
+                </div>
+
+                <div class="alert">
+                    <h4>중장기 효과</h4>
+                    <ul>
+                        <li>효율 30% 향상</li>
+                        <li>데이터 안정성</li>
+                        <li>확장성 확보</li>
+                        <li>합병 통합 원활</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 섹션 7 -->
+            <section id="section-7">
+                <h2>7. 결론</h2>
+
+                <div class="alert">
+                    <h4>요약</h4>
+                    <table style="border:none;">
+                        <tr>
+                            <td style="border:none;width:100px;"><strong>현황</strong></td>
+                            <td style="border:none;">구글 의존, 보안 리스크</td>
+                        </tr>
+                        <tr>
+                            <td style="border:none;"><strong>제안</strong></td>
+                            <td style="border:none;">NAS 전환, 자동화</td>
+                        </tr>
+                        <tr>
+                            <td style="border:none;"><strong>투자</strong></td>
+                            <td style="border:none;">0원</td>
+                        </tr>
+                        <tr>
+                            <td style="border:none;"><strong>효과</strong></td>
+                            <td style="border:none;">80만원/년 + 보안</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>권장사항</h3>
+
+                <div class="alert">
+                    <h4>즉시 추진</h4>
+                    <ul>
+                        <li>NAS 확인</li>
+                        <li>개발 착수</li>
+                        <li>1주 내 배포</li>
+                    </ul>
+                    <p><strong>이유:</strong> 투자 0원, 개발 2일, 효과 즉시, 리스크 낮음</p>
+                </div>
+
+                <div class="alert">
+                    <h4>병행 운영 (1개월)</h4>
+                    <p>NAS + 구글 병행 → 안정성 검증 → 구글 중단</p>
+                </div>
+
+                <h3>다음 단계</h3>
+
+                <div class="code-block">
+<pre>일정
+Day 1: NAS 확인, 개발 착수
+Day 2: 개발 완료, 테스트
+Day 3: 배포, 교육
+
+Week 1-4: 병행 운영
+Week 5: 완전 전환</pre>
+                </div>
+            </section>
+
+            <!-- 푸터 -->
+            <footer>
+                <p><strong>공동구매팀 인천본부 박효림</strong></p>
+                <p>문서 버전 1.0 | 2026년 1월 2일</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
